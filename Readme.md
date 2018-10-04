@@ -4,6 +4,7 @@ Uses Chance (https://chancejs.com) under the hood.
 
 Example:
 
+```
 const mimic = require('mimeo').mimic;
 const foo = mimic(
     { 
@@ -17,3 +18,4 @@ const foo = mimic(
 );
 
 console.log(foo);
+```
