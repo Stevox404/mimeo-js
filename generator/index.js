@@ -1,5 +1,6 @@
 const { genString } = require('./string');
 const { genNumber } = require('./number');
+const { guessKeys } = require('./json');
 
 function generateRandomData(sampleData) {
     let output;
@@ -38,7 +39,11 @@ function genArray(sampleData) {
 function genJSON(sampleData) {
     let newObj = {};
     Object.keys(sampleData).forEach(el => {
-        newObj[el] = generateRandomData(sampleData[el]);
+        if(guess = guessKeys(el, sampleData[el])){
+            newObj[el] = guess;
+        } else {
+            newObj[el] = generateRandomData(sampleData[el]);
+        }
     });
     return newObj;
 }

@@ -25,4 +25,7 @@ function guessKeys(key, val){
         return chance.city();
     }
     
+    return false;
 }
+
+module.exports = { guessKeys }
