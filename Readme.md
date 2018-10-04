@@ -1,5 +1,8 @@
 Quick and dirty random data generator. 
-No need for documentation. Just pass the sample data and get back similar data.
+
+No need for documentation. 
+Just pass the sample data into the mimic function of the ```require(mimeo)``` object and get back similar data.
+
 Uses Chance (https://chancejs.com) under the hood.
 
 Example:
