@@ -26,7 +26,7 @@ function generateRandomData(sampleData, opts = {
         } break;
 
         case 'number': {
-            output = genNumber(opts);
+            output = genNumber(sampleData, opts);
         } break;
 
         case 'boolean': {
