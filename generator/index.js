@@ -32,7 +32,7 @@ function generateRandomData(sampleData) {
             const data = sampleData();
             //Enums
             if (Array.isArray(data)) {
-                Chance().pickone(data);
+                output = Chance().pickone(data);
             }
         } break;
 
