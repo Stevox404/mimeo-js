@@ -1,3 +1,5 @@
+const Chance = require('chance');
+
 const { genString } = require('./string');
 const { genNumber } = require('./number');
 const { guessKeys } = require('./json');
@@ -23,6 +25,14 @@ function generateRandomData(sampleData) {
                 output = genArray(sampleData);
             } else {
                 output = genJSON(sampleData);
+            }
+        } break;
+
+        case 'function': {
+            const data = sampleData();
+            //Enums
+            if (Array.isArray(data)) {
+                Chance().pickone(data);
             }
         } break;
 

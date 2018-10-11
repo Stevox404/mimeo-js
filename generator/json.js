@@ -1,28 +1,35 @@
-const chance = require('chance').Chance();
+const Chance = require('chance');
 
 function guessKeys(key, val){
+    if( typeof val === 'function') {
+        const data = val();
+        //Enums
+        if (Array.isArray(data)) {
+            return Chance().pickone(data);
+        }
+    }
     if(/email/i.test(key)){
-        return chance.email();
+        return Chance(val).email({domain: 'example.com'});
     }
     if(/firstName|fName/i.test(key)){
-        return chance.first();
+        return Chance(val).first();
     }
     if(/name/i.test(key)){
         if(val.split(' ').length>1){
-            return chance.name();
+            return Chance(val).name();
         } else {
-            return chance.last();
+            return Chance(val).last();
         }
     }
     if(/gender/i.test(key)){
-        const gen = chance.gender();
+        const gen = Chance(val).gender();
         return val.length > 1 ? gen : gen[0];
     }
     if(/d\.?o\.?b|date|birthday/i.test(key) && val instanceof Date){
-        return chance.birthday();
+        return Chance(val).birthday();
     }
     if(/city|town/i.test(key)){
-        return chance.city();
+        return Chance(val).city();
     }
     
     return false;
