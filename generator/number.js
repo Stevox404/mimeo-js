@@ -1,8 +1,11 @@
-function genNumber(val) {
-    const minVal = Math.random() * (val - 1) + 1;
-    const maxVal = Math.random() * (val - 1) + 1 + val;
+const Chance = require('chance');
 
-    let num = Math.random() * (maxVal - minVal) + minVal;
+function genNumber(val, seed) {
+    const min = Chance(seed && val).floating({ min:0, max:1}) * (val - 1) + 1;
+    const max = Chance(seed && val).floating({ min:0, max:1}) * (val - 1) + 1 + Math.abs(val);
+
+    let num = Chance(seed && val).floating({ min, max});
+
     const int = parseInt(num);
     
     if (val%1) {

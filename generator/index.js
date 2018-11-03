@@ -4,27 +4,27 @@ const { genString } = require('./string');
 const { genNumber } = require('./number');
 const { guessKeys } = require('./json');
 
-function generateRandomData(sampleData) {
+function generateRandomData(sampleData, seed) {
     let output;
 
     switch (typeof sampleData) {
         case "string": {
-            output = genString(sampleData);
+            output = genString(sampleData, seed);
         } break;
 
         case 'number': {
-            output = genNumber(sampleData);
+            output = genNumber(sampleData, seed);
         } break;
 
         case 'boolean': {
-            output = parseInt(Math.random() * 10) % 2 ? true : false;
+            output = Chance(seed && sampleData).bool();
         } break;
 
         case 'object': {
             if (Array.isArray(sampleData)) {
-                output = genArray(sampleData);
+                output = genArray(sampleData, seed);
             } else {
-                output = genJSON(sampleData);
+                output = genJSON(sampleData, seed);
             }
         } break;
 
@@ -32,7 +32,7 @@ function generateRandomData(sampleData) {
             const data = sampleData();
             //Enums
             if (Array.isArray(data)) {
-                output = Chance().pickone(data);
+                output = Chance(seed && data).pickone(data);
             }
         } break;
 
@@ -42,17 +42,17 @@ function generateRandomData(sampleData) {
     return output;
 }
 
-function genArray(sampleData) {
-    return sampleData.map((elm) => generateRandomData(elm));
+function genArray(sampleData, seed) {
+    return sampleData.map((elm) => generateRandomData(elm, seed));
 }
 
-function genJSON(sampleData) {
+function genJSON(sampleData, seed) {
     let newObj = {};
     Object.keys(sampleData).forEach(el => {
-        if(guess = guessKeys(el, sampleData[el])){
+        if(guess = guessKeys(el, sampleData[el], seed)){
             newObj[el] = guess;
         } else {
-            newObj[el] = generateRandomData(sampleData[el]);
+            newObj[el] = generateRandomData(sampleData[el], seed);
         }
     });
     return newObj;

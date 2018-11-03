@@ -1,15 +1,15 @@
-function genString(str) {
-    let output = '';
-    if(/[ ]/.test(str)){
-        while ((output += ((output.length > 0) ? ' ' : '') + getStr()).length < str.length + Math.random()*10);
-    } else {
-        while ((output += getStr()).length < str.length + Math.random()*10);
-    }
-    function getStr(){
-        return Math.random().toString(36).substring(Math.random() * 10 + 2);
-    }
+const Chance = require('chance');
 
-    return output;
+function genString(str, seed) {
+    const length = str.length;
+    const words = str.split(' ').length;
+
+    
+    if(!words){
+        return Chance(seed && str).word({length});
+    } else {
+        return Chance(seed && str).sentence({words});
+    }
 }
 
 module.exports = { genString };
