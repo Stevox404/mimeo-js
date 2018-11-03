@@ -12,23 +12,24 @@ You can choose an enum by passing a function that returns an array. Example:
 }
 ```
 
+You can get repeatable values by passing ``true`` as the second parameter of the ``mimic`` function
+
 Uses Chance (https://chancejs.com) under the hood.
 
 Example:
 
 ```
 const mimic = require('mimeo').mimic;
-const foo = mimic(
-    { 
-        email: 'foo@bar.com', 
-        username: 'foo404',
-        role: () => ['administrator', 'moderator', 'user'], 
-        details: { 
-            gender: 'male', 
-            dob: new Date(), 
-        } 
-    }
-);
+const foo = { 
+    email: 'foo@bar.com', 
+    username: 'foo404',
+    role: () => ['administrator', 'moderator', 'user'], 
+    details: { 
+        gender: 'male', 
+        dob: new Date(), 
+    } 
+};
 
-console.log(foo);
+console.log(mimic(foo));
+console.log(mimic(foo, true)); //Will always be same whenever ran
 ```
