@@ -9,7 +9,7 @@ function guessKeys(key, val, seed){
         }
     }
     if(/email/i.test(key)){
-        return Chance(seed && val).email({domain: 'example.com'});
+        return Chance(seed && val).email({domain: 'mailinator.com'});
     }
     if(/firstName|fName/i.test(key)){
         return Chance(seed && val).first();
