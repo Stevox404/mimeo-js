@@ -4,7 +4,14 @@ const { genString } = require('./string');
 const { genNumber } = require('./number');
 const { guessKeys } = require('./json');
 
-function generateRandomData(sampleData, seed) {
+/**
+ * Function to generate random data
+ *
+ * @param {object} sampleData - data to be mimicked
+ * @param {boolean} shouldSeed - seed the random function using the sample data
+ * @returns {object} data in the structure of the provided @param sampleData
+ */
+function generateRandomData(sampleData, shouldSeed) {
     let output;
 
     switch (typeof sampleData) {
