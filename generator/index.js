@@ -16,22 +16,22 @@ function generateRandomData(sampleData, shouldSeed) {
 
     switch (typeof sampleData) {
         case "string": {
-            output = genString(sampleData, seed);
+            output = genString(sampleData, shouldSeed);
         } break;
 
         case 'number': {
-            output = genNumber(sampleData, seed);
+            output = genNumber(sampleData, shouldSeed);
         } break;
 
         case 'boolean': {
-            output = Chance(seed && sampleData).bool();
+            output = Chance(shouldSeed && sampleData).bool();
         } break;
 
         case 'object': {
             if (Array.isArray(sampleData)) {
-                output = genArray(sampleData, seed);
+                output = genArray(sampleData, shouldSeed);
             } else {
-                output = genJSON(sampleData, seed);
+                output = genJSON(sampleData, shouldSeed);
             }
         } break;
 
@@ -39,7 +39,7 @@ function generateRandomData(sampleData, shouldSeed) {
             const data = sampleData();
             //Enums
             if (Array.isArray(data)) {
-                output = Chance(seed && data).pickone(data);
+                output = Chance(shouldSeed && data).pickone(data);
             }
         } break;
 
@@ -49,17 +49,17 @@ function generateRandomData(sampleData, shouldSeed) {
     return output;
 }
 
-function genArray(sampleData, seed) {
-    return sampleData.map((elm) => generateRandomData(elm, seed));
+function genArray(sampleData, shouldSeed) {
+    return sampleData.map((elm) => generateRandomData(elm, shouldSeed));
 }
 
-function genJSON(sampleData, seed) {
+function genJSON(sampleData, shouldSeed) {
     let newObj = {};
     Object.keys(sampleData).forEach(el => {
-        if(guess = guessKeys(el, sampleData[el], seed)){
+        if(guess = guessKeys(el, sampleData[el], shouldSeed)){
             newObj[el] = guess;
         } else {
-            newObj[el] = generateRandomData(sampleData[el], seed);
+            newObj[el] = generateRandomData(sampleData[el], shouldSeed);
         }
     });
     return newObj;
