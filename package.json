@@ -4,11 +4,15 @@
   "description": "Quickly generate random data",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "mocha test.js"
   },
   "author": "Stevox",
   "license": "ISC",
   "dependencies": {
     "chance": "^1.0.16"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2"
   }
 }
