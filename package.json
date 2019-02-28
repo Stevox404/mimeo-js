@@ -1,6 +1,6 @@
 {
   "name": "mimeo-js",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Quickly generate random data",
   "main": "index.js",
   "scripts": {
