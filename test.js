@@ -10,6 +10,12 @@ describe('Test:', () => {
         expect(rnd).to.be.a('string');
         done();
     });
+    it('Should get a random (unformatted) string date', (done) => {
+        const rnd = mimic('12/05/2005');
+        expect(rnd).to.be.a('string');
+        expect(Number.isNaN(Date.parse(rnd))).to.be.equal(false);
+        done();
+    });
     it('Should get a random sentence', (done) => {
         const rnd = mimic('Hello there World!');
         const numWords = rnd.split(' ').length;
@@ -43,6 +49,11 @@ describe('Test:', () => {
         expect(rnd[0]).to.be.a('number')
         expect(rnd[2]).to.be.an('array')
         done();
+    });
+    it('Should get a random date', (done) => {
+        const rnd = mimic(new Date());
+        expect(rnd instanceof Date).to.be.equal(true);
+        done()
     });
     it('Should get a random object', (done) => {
         const rnd = mimic(

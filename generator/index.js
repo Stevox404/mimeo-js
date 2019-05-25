@@ -16,6 +16,10 @@ function generateRandomData(sampleData, shouldSeed) {
 
     switch (typeof sampleData) {
         case "string": {
+            if (new Date(sampleData) instanceof Date && !isNaN(new Date(sampleData))){
+                output = generateRandomData(new Date(sampleData), shouldSeed).toString();
+                break;
+            }
             output = genString(sampleData, shouldSeed);
         } break;
 
@@ -28,7 +32,10 @@ function generateRandomData(sampleData, shouldSeed) {
         } break;
 
         case 'object': {
-            if (Array.isArray(sampleData)) {
+            if (sampleData instanceof Date ) {
+                output = Chance(shouldSeed && sampleData).date();
+            }
+            else if (Array.isArray(sampleData)) {
                 output = genArray(sampleData, shouldSeed);
             } else {
                 output = genJSON(sampleData, shouldSeed);
