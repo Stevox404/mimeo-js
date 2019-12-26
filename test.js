@@ -77,4 +77,20 @@ describe('Test:', () => {
             .with.property('dob').which.is.a('Date');
         done();
     });
+
+    it('should use provided seed if any', (done) => {
+        const strA = mimic('Test string A', true);
+        const strB = mimic('Test string B', {seed: 'some seed'});
+
+        expect(strA).to.not.be.equal(strB);
+        done()
+    });
+
+    it('should run a generator API function', (done) => {
+        const someDate = mimic(() => ({fn: 'birthday', args: [{type: 'adult'}] }))
+        const someEmail = mimic(() => ({generator: 'Faker', fn: 'internet.email'}))
+        expect(someDate).to.be.a.instanceOf(Date);
+        expect(/@/.test(someEmail)).to.be.true;
+        done()
+    });
 });
