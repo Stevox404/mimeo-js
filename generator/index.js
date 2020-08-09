@@ -26,12 +26,12 @@ function generateRandomData(sampleData, opts = {}) {
     let output;
 
     const shouldSeed = (opts.seed) || opts === true;
-    const {seed} = opts;
+    const { seed } = opts;
     const fnOpts = { shouldSeed, ...opts }
 
     switch (typeof sampleData) {
         case "string": {
-            if (new Date(sampleData) instanceof Date && !isNaN(new Date(sampleData))) {
+            if (sampleData && !Number.isNaN(Date.parse(new Date(sampleData)))) {
                 output = generateRandomData(new Date(sampleData), opts).toString();
                 break;
             }
@@ -48,7 +48,8 @@ function generateRandomData(sampleData, opts = {}) {
 
         case 'object': {
             if (sampleData instanceof Date) {
-                output = Chance(shouldSeed && (seed || sampleData)).date();
+                const d = new Date(sampleData);
+                output = Chance(shouldSeed && (seed || sampleData)).date({ year: d.getFullYear() });
             }
             else if (Array.isArray(sampleData)) {
                 output = genArray(sampleData, fnOpts);
@@ -65,16 +66,16 @@ function generateRandomData(sampleData, opts = {}) {
             }
 
             if (typeof data === 'object' && data.constructor === Object && data.fn) {
-                const {generator = 'Chance', fn, args = []} = data;
-                if(generator.toLowerCase() === 'chance'){
+                const { generator = 'Chance', fn, args = [] } = data;
+                if (generator.toLowerCase() === 'chance') {
                     output = Chance(shouldSeed && (seed || data))[fn](...args);
-                } else if(generator.toLowerCase() === 'faker'){
+                } else if (generator.toLowerCase() === 'faker') {
                     if (shouldSeed) faker.seed((seed || data));
                     // Faker API has functions at most 2 levels deep
                     const fns = fn.split('.');
-                    if(fns.length == 1){
+                    if (fns.length == 1) {
                         output = faker[fn](...args);
-                    } else if(fns.length == 2){
+                    } else if (fns.length == 2) {
                         output = faker[fns[0]][fns[1]](...args);
                     }
                 }

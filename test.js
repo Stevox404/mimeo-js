@@ -60,6 +60,7 @@ describe('Test:', () => {
             { 
                 email: 'foo@bar.com', 
                 username: 'foo404',
+                profilePic: 'http://mypic.com',
                 role: () => ['administrator', 'moderator', 'user'], 
                 details: { 
                     gender: 'male', 
@@ -67,9 +68,10 @@ describe('Test:', () => {
                 } 
             }
         );
-        expect(rnd).to.be.an('Object')
+        expect(rnd).to.be.an('Object');
         expect(rnd).to.have.property('email').which.is.a('string');
         expect(rnd).to.have.property('username').which.is.a('string');
+        expect(rnd).to.have.property('profilePic').which.match(/^http/);
         expect(rnd).to.have.property('role').which.is.oneOf(['administrator', 'moderator', 'user']);
         expect(rnd).to.have.property('details').which.is.an('Object')
             .with.property('gender').which.is.a('string');
