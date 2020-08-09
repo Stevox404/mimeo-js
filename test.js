@@ -62,6 +62,7 @@ describe('Test:', () => {
                 username: 'foo404',
                 profilePic: 'http://mypic.com',
                 role: () => ['administrator', 'moderator', 'user'], 
+                empDate: new Date(),
                 details: { 
                     gender: 'male', 
                     dob: new Date(), 
@@ -77,6 +78,7 @@ describe('Test:', () => {
             .with.property('gender').which.is.a('string');
         expect(rnd).to.have.property('details').which.is.an('Object')
             .with.property('dob').which.is.a('Date');
+        console.log(rnd);
         done();
     });
 

@@ -22,6 +22,7 @@ const { guessKeys } = require('./json');
  * @returns {object} data in the structure of the provided @param sampleData
  */
 
+
 function generateRandomData(sampleData, opts = {}) {
     let output;
 
@@ -65,6 +66,7 @@ function generateRandomData(sampleData, opts = {}) {
                 output = Chance(shouldSeed && (seed || data)).pickone(data);
             }
 
+            /**@deprecated */
             if (typeof data === 'object' && data.constructor === Object && data.fn) {
                 const { generator = 'Chance', fn, args = [] } = data;
                 if (generator.toLowerCase() === 'chance') {
@@ -98,11 +100,7 @@ function genArray(sampleData, opts) {
 function genJSON(sampleData, opts) {
     let newObj = {};
     Object.keys(sampleData).forEach(el => {
-        if (guess = guessKeys(el, sampleData[el], opts)) {
-            newObj[el] = guess;
-        } else {
-            newObj[el] = generateRandomData(sampleData[el], opts);
-        }
+        newObj[el] = guessKeys(el, sampleData[el], opts);
     });
     return newObj;
 }

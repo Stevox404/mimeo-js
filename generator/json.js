@@ -25,14 +25,17 @@ function guessKeys(key, val, { shouldSeed, seed }) {
         const gen = Chance(shouldSeed && (seed || val)).gender();
         return val.length > 1 ? gen : gen[0];
     }
-    if (/date/i.test(key) || (val && !Number.isNaN(Date.parse(new Date(val))))) {
-        if (/(?=dob|birth)/i.test(key)) {
-            return Chance(shouldSeed && (seed || val)).birthday();
-        } else {
-            const d = new Date(val);
-            return Chance(shouldSeed && (seed || val)).date({year: d.getFullYear()});
-        }
-    }
+    if (/(?=dob|birth)/i.test(key)) {
+        return Chance(shouldSeed && (seed || val)).birthday();
+    } 
+    // if (/date/i.test(key) || (val && !Number.isNaN(Date.parse(new Date(val))))) {
+    //     if (/(?=dob|birth)/i.test(key)) {
+    //         return Chance(shouldSeed && (seed || val)).birthday();
+    //     } else {
+    //         const d = new Date(val);
+    //         return Chance(shouldSeed && (seed || val)).date({year: d.getFullYear()});
+    //     }
+    // }
     if (/city|town/i.test(key) && typeof val === 'string') {
         return Chance(shouldSeed && (seed || val)).city();
     }
@@ -40,7 +43,7 @@ function guessKeys(key, val, { shouldSeed, seed }) {
         return 'http:' + Chance(shouldSeed && (seed || val)).avatar();
     }
 
-    return false;
+    return require('./index').generateRandomData(val);
 }
 
 
