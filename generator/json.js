@@ -27,7 +27,7 @@ function guessKeys(key, val, { shouldSeed, seed }) {
     }
     if (/(?=dob|birth)/i.test(key)) {
         return Chance(shouldSeed && (seed || val)).birthday();
-    } 
+    }
     if (/city|town/i.test(key) && typeof val === 'string') {
         return Chance(shouldSeed && (seed || val)).city();
     }
@@ -35,7 +35,7 @@ function guessKeys(key, val, { shouldSeed, seed }) {
         return 'http:' + Chance(shouldSeed && (seed || val)).avatar();
     }
 
-    return require('./index').generateRandomData(val);
+    return require('./index').generateRandomData(val, seed ? { seed }: shouldSeed);
 }
 
 
