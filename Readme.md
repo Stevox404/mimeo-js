@@ -35,8 +35,9 @@ You can choose an enum by passing a function that returns an array. Example:
 
 ___
 <br>
-
-### Mocker API Access
+<!-- DEPRECATED: Will not be removed but also will no longer be maintained -->
+### ~~Mocker API Access~~
+****DEPRECATED: Will not be removed but also will no longer be maintained**
 Access the underlying mocker api by passing a function that returns an object with the following keys:
 > * generator {string: Chance|Faker } - Generator API to access. Default "Chance"
 > * fn {string} - The function to be called
@@ -63,7 +64,7 @@ const foo = {
     role: () => ['administrator', 'moderator', 'user'], 
     details: { 
         gender: 'male', 
-        dob: () => ({fn: 'birthday', args: [{type: 'adult'}] }), 
+        dob: new Date(), 
     } 
 };
 
