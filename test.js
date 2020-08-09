@@ -29,13 +29,13 @@ describe('Test:', () => {
         done();
     });
     it('Should get a random number', (done) => {
-        const rnd = mimic(274);
-        expect(rnd).to.be.a('number')
+        const rnd = mimic(-274);
+        expect(rnd).to.be.a('number').is.not.NaN;
         done();
     });
     it('Should get a random double', (done) => {
-        const rnd = mimic(3.14);
-        expect(rnd).to.be.a('number')
+        const rnd = mimic(-3.14);
+        expect(rnd).to.be.a('number').is.not.NaN;
         done();
     });
     it('Should get a random boolean', (done) => {

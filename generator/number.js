@@ -1,17 +1,19 @@
 const Chance = require('chance');
 
 function genNumber(val, { shouldSeed, seed }) {
-    const min = Chance(shouldSeed && (seed || val)).floating({ min: 0, max: 1 }) * (val - 1) + 1;
-    const max = Chance(shouldSeed && (seed || val)).floating({ min: 0, max: 1 }) * (val - 1) + 1 + Math.abs(val);
+    const decPwr = Number(1 + String(Number(val)).substr(1).replace(/\d/g, 0));
+    const max = val + decPwr;
+    const min = Math.max(val - decPwr, 0);
 
     let num = Chance(shouldSeed && (seed || val)).floating({ min, max });
+    const sign = val > 0? '':'-';
 
-    const int = parseInt(num);
+    const int = Number.parseInt(sign + num);
 
     if (val % 1) {
         // Float to have equal scale
         const flt = num.toString().substring(0, int.toString().length + val.toString().match(/\..*$/)[0].length);
-        return parseFloat(flt);
+        return Number.parseFloat(sign + flt);
     } else {
         return int;
     }
