@@ -37,7 +37,6 @@ ___
 <br>
 <!-- DEPRECATED: Will not be removed but also will no longer be maintained -->
 ### ~~Mocker API Access~~
-****DEPRECATED: Will not be removed but also will no longer be maintained**
 Access the underlying mocker api by passing a function that returns an object with the following keys:
 > * generator {string: Chance|Faker } - Generator API to access. Default "Chance"
 > * fn {string} - The function to be called

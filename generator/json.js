@@ -28,14 +28,6 @@ function guessKeys(key, val, { shouldSeed, seed }) {
     if (/(?=dob|birth)/i.test(key)) {
         return Chance(shouldSeed && (seed || val)).birthday();
     } 
-    // if (/date/i.test(key) || (val && !Number.isNaN(Date.parse(new Date(val))))) {
-    //     if (/(?=dob|birth)/i.test(key)) {
-    //         return Chance(shouldSeed && (seed || val)).birthday();
-    //     } else {
-    //         const d = new Date(val);
-    //         return Chance(shouldSeed && (seed || val)).date({year: d.getFullYear()});
-    //     }
-    // }
     if (/city|town/i.test(key) && typeof val === 'string') {
         return Chance(shouldSeed && (seed || val)).city();
     }

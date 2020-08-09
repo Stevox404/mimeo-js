@@ -32,7 +32,13 @@ function generateRandomData(sampleData, opts = {}) {
 
     switch (typeof sampleData) {
         case "string": {
-            if (sampleData && !Number.isNaN(Date.parse(new Date(sampleData)))) {
+            if (!Number.isNaN(Date.parse(sampleData)) && (
+                new Date(sampleData).toString() === sampleData ||
+                new Date(sampleData).toISOString() === sampleData ||
+                new Date(sampleData).toUTCString() === sampleData ||
+                new Date(sampleData).toDateString() === sampleData ||
+                new Date(sampleData).toTimeString() === sampleData
+            )) {
                 output = generateRandomData(new Date(sampleData), opts).toString();
                 break;
             }
