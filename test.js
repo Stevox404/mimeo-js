@@ -24,7 +24,7 @@ describe('Test:', () => {
         done();
     });
     it('Should choose from list', (done) => {
-        const rnd = mimic(() => ['A', 'B', 'C', 'D', 'E']);
+        const rnd = mimic((chance) => chance.pickone(['A', 'B', 'C', 'D', 'E']));
         expect(rnd).to.be.oneOf(['A', 'B', 'C', 'D', 'E']);
         done();
     });
@@ -61,7 +61,9 @@ describe('Test:', () => {
                 email: 'foo@bar.com', 
                 username: 'foo404',
                 profilePic: 'http://mypic.com',
-                role: () => ['administrator', 'moderator', 'user'], 
+                role: (chance) => {
+                    return chance.pickone(['administrator', 'moderator', 'user'])                    
+                }, 
                 empDate: new Date(),
                 details: { 
                     gender: 'male', 
@@ -78,7 +80,6 @@ describe('Test:', () => {
             .with.property('gender').which.is.a('string');
         expect(rnd).to.have.property('details').which.is.an('Object')
             .with.property('dob').which.is.a('Date');
-        console.log(rnd);
         done();
     });
 
@@ -87,14 +88,6 @@ describe('Test:', () => {
         const strB = mimic('Test string B', {seed: 'some seed'});
 
         expect(strA).to.not.be.equal(strB);
-        done()
-    });
-
-    it('should run a generator API function', (done) => {
-        const someDate = mimic(() => ({fn: 'birthday', args: [{type: 'adult'}] }))
-        const someEmail = mimic(() => ({generator: 'Faker', fn: 'internet.email'}))
-        expect(someDate).to.be.a.instanceOf(Date);
-        expect(/@/.test(someEmail)).to.be.true;
         done()
     });
 });

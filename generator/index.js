@@ -1,5 +1,4 @@
 const Chance = require('chance');
-const faker = require('faker');
 
 const { genString } = require('./string');
 const { genNumber } = require('./number');
@@ -33,6 +32,7 @@ function generateRandomData(sampleData, opts = {}) {
     switch (typeof sampleData) {
         case "string": {
             if (!Number.isNaN(Date.parse(sampleData)) && (
+                /^\d+?\/\d+?\/\d+$/.test(sampleData) ||
                 new Date(sampleData).toString() === sampleData ||
                 new Date(sampleData).toISOString() === sampleData ||
                 new Date(sampleData).toUTCString() === sampleData ||
@@ -66,28 +66,8 @@ function generateRandomData(sampleData, opts = {}) {
         } break;
 
         case 'function': {
-            const data = sampleData();
-            //Enums
-            if (Array.isArray(data)) {
-                output = Chance(shouldSeed && (seed || data)).pickone(data);
-            }
-
-            /**@deprecated */
-            if (typeof data === 'object' && data.constructor === Object && data.fn) {
-                const { generator = 'Chance', fn, args = [] } = data;
-                if (generator.toLowerCase() === 'chance') {
-                    output = Chance(shouldSeed && (seed || data))[fn](...args);
-                } else if (generator.toLowerCase() === 'faker') {
-                    if (shouldSeed) faker.seed((seed || data));
-                    // Faker API has functions at most 2 levels deep
-                    const fns = fn.split('.');
-                    if (fns.length == 1) {
-                        output = faker[fn](...args);
-                    } else if (fns.length == 2) {
-                        output = faker[fns[0]][fns[1]](...args);
-                    }
-                }
-            }
+            const chance = Chance(shouldSeed && (seed || sampleData));
+            output = sampleData(chance);
         } break;
 
         default: output = null;
